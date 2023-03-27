@@ -7,11 +7,14 @@ var jsonParser = bodyParser.json()
 
 var bp = require('body-parser')
 
+
 const database = require("./db") 
 const Users = require("./model/users")
 const Agendas = require("./model/agendas")
 const Salas = require("./model/salas")
 // database.sync({force:true})
+
+const pg = require('pg');
 database.sync()
 
 
