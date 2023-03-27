@@ -37,6 +37,10 @@ app.post('/createUser', async function(req, res){
 
 })
 
+app.get('/welcome', function(req, res){
+  res.status(200).send("VALEIiii");
+})
+
 
 
 
