@@ -9,8 +9,8 @@ require('dotenv').config()
 // })
 
 const sequelize = new Sequelize(process.env.DATABASE_NAME,process.env.DATABSE_USER, process.env.DATABASE_PASSWORD,{
-    dialect:process.env.dialect,
     host:process.env.host,
+    dialect:process.env.dialect,
     port:process.env.port,
     ssl: process.env.ssl
 })
