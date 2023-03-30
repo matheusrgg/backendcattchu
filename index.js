@@ -4,7 +4,7 @@ var app = express();
 var bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
 var jsonParser = bodyParser.json()
-
+require('dotenv').config()
 var bp = require('body-parser')
 
 
@@ -44,7 +44,7 @@ app.get('/welcome', function(req, res){
 
 
 
-app.listen(3000, async function () {
+app.listen(process.env.PORT ||3000, async function () {
   console.log("teste ok")
   return "servidor rodando"
 })
