@@ -8,11 +8,21 @@ require('dotenv').config()
 //     ssl: true
 // })
 
-const sequelize = new Sequelize(process.env.DATABASE_NAME,process.env.DATABSE_USER, process.env.DATABASE_PASSWORD,{
-    host:process.env.host,
-    dialect:process.env.dialect,
-    port:process.env.port,
-    ssl: process.env.ssl
+// const sequelize = new Sequelize(process.env.DATABASE_NAME,process.env.DATABSE_USER, process.env.DATABASE_PASSWORD,{
+//     host:process.env.host,
+//     dialect:process.env.dialect,
+//     port:process.env.port,
+//     ssl: process.env.ssl
+// })
+
+// module.exports = sequelize
+
+const sequelize = new Sequelize(process.env.DATABASE_URL,{
+  dialectOptions:{
+      ssl: {
+        rejectUnauthorized:process.env.ssl
+  }
+}
 })
 
 module.exports = sequelize
