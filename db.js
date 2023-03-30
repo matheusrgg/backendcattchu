@@ -18,11 +18,12 @@ require('dotenv').config()
 // module.exports = sequelize
 
 const sequelize = new Sequelize(process.env.DATABASE_URL,{
-  dialectOptions:{
-      ssl: {
-        rejectUnauthorized:process.env.ssl
-  }
-}
+    dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false // <<<<<<< YOU NEED THIS
+        }
+      },
 })
 
 module.exports = sequelize
