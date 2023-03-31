@@ -43,9 +43,16 @@ app.get('/welcome', function(req, res){
 
 
 
+//--------------------> Porta de Produção
+// app.listen(process.env.PORT ||3000, async function () {
+//   console.log("teste ok")
+//   return "servidor rodando"
+// })
 
-app.listen(process.env.PORT ||3000, async function () {
+
+app.listen(3000, async function () {
   console.log("teste ok")
   return "servidor rodando"
 })
+
 
