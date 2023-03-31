@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 var jsonParser = bodyParser.json()
 require('dotenv').config()
 var bp = require('body-parser')
-
+var cors = require('cors')
 
 const database = require("./db") 
 const Users = require("./model/users")
@@ -19,26 +19,43 @@ database.sync()
 
 const bcrypt = require('bcrypt');
 
-
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 
-
+// app.use(cors({
+//   origin: 'https://localhost:3000',
+//   methods: ['GET','POST'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   maxAge: 600
+// }));
 
 
 
 app.post('/login', async function(req, res){
-try {
-  const { nome, senha } = req.body;
 
+ 
+
+  // res.set(      
+  //   { key: 'Access-Control-Allow-Credentials', value: 'true' },
+  //   { key: 'Access-Control-Allow-Origin', value: '*' },
+  //   { key: 'Access-Control-Allow-Methods', value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT' },
+  //   { key: 'Access-Control-Allow-Headers', value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version,  Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization' },)
+  const { nome, senha } = req.body;
+      console.log("estou pegando a senha", senha)
      const userName = await Users.findOne({
       where: {
-      senha: senha
+      senha: JSON.stringify(senha) 
     } 
   });
 
    if (userName) {
-    const isSame = await bcrypt.compare(senha, userName.senha);
+    const isSame = await bcrypt.compare(JSON.stringify(senha) , userName.senha);
     return res.status(201).send(userName);
   
   
@@ -46,9 +63,7 @@ try {
     return res.status(401).send("Authentication failed");
   }
   
-} catch (error) {
-  console.log(error);
-}
+
 })
 
 app.post('/createUser', async function(req, res){
@@ -70,7 +85,12 @@ app.post('/createUser', async function(req, res){
 })
 
 app.get('/welcome', function(req, res){
-  res.status(200).send("VALEIiii");
+  res.set(      
+  { key: 'Access-Control-Allow-Credentials', value: 'true' },
+  { key: 'Access-Control-Allow-Origin', value: '*' },
+  { key: 'Access-Control-Allow-Methods', value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT' },
+  { key: 'Access-Control-Allow-Headers', value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization' },)
+  res.status(200).send("teste");
 })
 
 
@@ -82,7 +102,7 @@ app.get('/welcome', function(req, res){
 // })
 
 
-app.listen(3000, async function () {
+app.listen(4000, async function () {
   console.log("teste ok")
   return "servidor rodando"
 })
