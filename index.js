@@ -17,23 +17,55 @@ const Salas = require("./model/salas")
 const pg = require('pg');
 database.sync()
 
+const bcrypt = require('bcrypt');
+
 
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 
 
 
-app.post('/auth', function(req, res){
-  console.log("object", req.body.nome);
-  res.send({ status: 'SUCCESS' });
-  res.send(req.body.json)
 
+
+app.post('/login', async function(req, res){
+try {
+  const { nome, senha } = req.body;
+
+     const userName = await Users.findOne({
+      where: {
+      senha: senha
+    } 
+  });
+
+   if (userName) {
+    const isSame = await bcrypt.compare(senha, userName.senha);
+    return res.status(201).send(userName);
+  
+  
+  } else {
+    return res.status(401).send("Authentication failed");
+  }
+  
+} catch (error) {
+  console.log(error);
+}
 })
 
-
 app.post('/createUser', async function(req, res){
-  const novaAgenda = await Users.create(req.body)
-  res.send(novaAgenda)
+
+  try {
+    const { nome, email, senha } = req.body;
+    const data = {
+      nome,
+      email,
+      senha: await bcrypt.hash(senha, 10),
+    };
+    //saving the user
+    const userName = await Users.create(data);
+    return res.status(201).send(userName);
+  }catch (error) {
+    console.log(error);
+  }
 
 })
 
