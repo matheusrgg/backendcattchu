@@ -49,12 +49,17 @@ app.use(bp.urlencoded({ extended: true }))
 app.post('/createProposta', async function(req, res){
 
   try {
-    const { mensagem_proposta, veiculo_midiatico, valor_divulgacao,influenciadorId } = req.body;
+    const { mensagem_proposta, veiculo_midiatico, valor_divulgacao,influenciadorId , empresaId,status_proposta,tipo_remetente,id_remetente, id_destinatario} = req.body;
     const data = {
       mensagem_proposta,
       veiculo_midiatico,
       valor_divulgacao,
-      influenciadorId
+      influenciadorId,
+      empresaId,
+      status_proposta,
+      tipo_remetente,
+      id_remetente,
+      id_destinatario
     };
     //saving the user
     const propostaEnvio = await Proposta.create(data);
@@ -64,7 +69,7 @@ app.post('/createProposta', async function(req, res){
   }
 
 })
-app.post('/createUser', async function(req, res){
+app.post('/createInfluencer', async function(req, res){
 
   try {
     const { nome, email, senha, cpf, tags, data_nascimento } = req.body;
@@ -78,6 +83,27 @@ app.post('/createUser', async function(req, res){
     };
     //saving the user
     const userName = await Influenciador.create(data);
+    return res.status(201).send(userName);
+  }catch (error) {
+    console.log(error);
+  }
+
+})
+
+
+app.post('/createEmpresa', async function(req, res){
+
+  try {
+    const { nome, email, senha, cnpj, tags } = req.body;
+    const data = {
+      nome,
+      email,
+      senha: await bcrypt.hash(senha, 10),
+      cnpj, 
+      tags,
+    };
+    //saving the user
+    const userName = await Empresa.create(data);
     return res.status(201).send(userName);
   }catch (error) {
     console.log(error);

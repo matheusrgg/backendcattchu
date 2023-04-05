@@ -22,7 +22,24 @@ const Proposta = database.define('proposta', {
     valor_divulgacao:{
         type:Sequelize.STRING,
         allowNull: false
-    },     
+    }, 
+    status_proposta:{
+        type:Sequelize.ENUM("aceita", "pendente", "declinada"),
+        defaultValue: "pendente", 
+        allowNull: false
+    },   
+    tipo_remetente:{
+        type:Sequelize.ENUM("marca", "influenciador"),
+        allowNull: false
+    }, 
+    id_remetente:{
+        type:Sequelize.STRING,
+        allowNull: false
+    }, 
+    id_destinatario:{
+        type:Sequelize.STRING,
+        allowNull: false
+    }, 
 }) 
 
 module.exports = Proposta;

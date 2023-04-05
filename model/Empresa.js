@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 const database = require('../db')
-
+const Proposta = require('../model/proposta')
 const Empresa = database.define('empresa', {
     id:{
         type: Sequelize.INTEGER,
@@ -30,5 +30,14 @@ const Empresa = database.define('empresa', {
         allowNull: false
     }    
 }) 
+
+
+Empresa.hasMany(Proposta, {
+    foreignKey: {
+        allowNull: false
+    },
+
+})
+Proposta.belongsTo(Empresa);
 
 module.exports = Empresa;
