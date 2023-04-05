@@ -1,10 +1,9 @@
-const { Sequelize, hasMany, belongsTo } = require('sequelize');
+const { Sequelize} = require('sequelize');
 
 const database = require('../db');
-const Influenciador = require('./influenciador');
-const sequelize = require('../db');
 
-const Proposta = database.define('proposta', {
+
+const Proposta = database.define('Proposta', {
     id:{
         type: Sequelize.INTEGER,
         autoIncrement:true,

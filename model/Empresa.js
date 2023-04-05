@@ -1,8 +1,10 @@
 const { Sequelize } = require('sequelize');
 
 const database = require('../db')
-const Proposta = require('../model/proposta')
-const Empresa = database.define('empresa', {
+const Proposta = require('../model/Proposta')
+
+
+const Empresa = database.define('Empresa', {
     id:{
         type: Sequelize.INTEGER,
         autoIncrement:true,
@@ -34,6 +36,7 @@ const Empresa = database.define('empresa', {
 
 Empresa.hasMany(Proposta, {
     foreignKey: {
+        name: "empresaId",
         allowNull: false
     },
 

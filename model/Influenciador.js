@@ -1,9 +1,9 @@
 const { Sequelize } = require('sequelize');
 
 const database = require('../db')
-const Proposta = require('../model/proposta')
+const Proposta = require('../model/Proposta')
 
-const Influenciador = database.define('influenciador', {
+const Influenciador = database.define('Influenciador', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -42,9 +42,11 @@ const Influenciador = database.define('influenciador', {
 
 Influenciador.hasMany(Proposta, {
     foreignKey: {
+        name: "influenciadorId",
         allowNull: false
     },
 
 })
 Proposta.belongsTo(Influenciador);
+
 module.exports = Influenciador;
