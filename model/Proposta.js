@@ -1,6 +1,8 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, hasMany, belongsTo } = require('sequelize');
 
-const database = require('../db')
+const database = require('../db');
+const Influenciador = require('./influenciador');
+const sequelize = require('../db');
 
 const Proposta = database.define('proposta', {
     id:{
@@ -9,24 +11,18 @@ const Proposta = database.define('proposta', {
         allowNull:false,
         primaryKey:true
     },
-    mensagem:{
+    mensagem_proposta:{
         type:Sequelize.STRING,
         allowNull: false
     },
     veiculo_midiatico:{
+        type:Sequelize.ENUM("instagram", "tiktok"),
+        allowNull: false
+    },
+    valor_divulgacao:{
         type:Sequelize.STRING,
         allowNull: false
-    },
-    setor_atuação:{
-        type:Sequelize.STRING,
-        allowNull: false
-    },
-    valor_divulgação:{
-        type: Sequelize.NUMBER,
-        allowNull: false
-    },
-
-    
+    },     
 }) 
 
 module.exports = Proposta;

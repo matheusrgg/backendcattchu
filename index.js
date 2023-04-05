@@ -1,3 +1,4 @@
+//index.js
 
 var express = require('express');
 var app = express();
@@ -8,10 +9,11 @@ require('dotenv').config()
 var bp = require('body-parser')
 var cors = require('cors')
 
-const database = require("./db")
-const Users = require("./model/users")
-const Agendas = require("./model/agendas")
-const Salas = require("./model/salas")
+const Influenciador = require('./model/influenciador')
+const Empresa = require('./model/empresa')
+const Proposta = require('./model/proposta')
+const database = require("./db") 
+
 // database.sync({force:true})
 
 const pg = require('pg');
@@ -29,66 +31,63 @@ app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 
 
-app.post('/login', async function (req, res) {
 
-
-
-  const { nome, senha } = req.body;
-  console.log("estou pegando a senha", senha)
-  const userName = await Users.findOne({
-    where: {
-      senha: JSON.stringify(senha)
-      // senha: senha
-    }
-  });
-
-  if (userName) {
-    const isSame = await bcrypt.compare(JSON.stringify(senha), userName.senha);
-    // const isSame = await bcrypt.compare(senha , userName.senha);
-    return res.status(201).send(userName);
-
-
-  } else {
-    return res.status(401).send("Authentication failed");
-  }
-
-
-})
-
-app.post('/createUser', async function (req, res) {
+// app.post('/login', async function(req, res){
+//       console.log("estou pegando a senha", senha)
+//      const userName = await Users.findOne({
+//       where: {
+//       senha: JSON.stringify(senha) 
+//     } 
+//   });
+//    if (userName) {
+//     const isSame = await bcrypt.compare(JSON.stringify(senha) , userName.senha);
+//     return res.status(201).send(userName);
+//   } else {
+//     return res.status(401).send("Authentication failed");
+//   }
+// })
+app.post('/createProposta', async function(req, res){
 
   try {
-    const { nome, email, senha, perfil, tags, instagram, data_de_nascimento } = req.body;
+    const { mensagem_proposta, veiculo_midiatico, valor_divulgacao,influenciadorId } = req.body;
+    const data = {
+      mensagem_proposta,
+      veiculo_midiatico,
+      valor_divulgacao,
+      influenciadorId
+    };
+    //saving the user
+    const propostaEnvio = await Proposta.create(data);
+    return res.status(201).send(propostaEnvio);
+  }catch (error) {
+    console.log(error);
+  }
+
+})
+app.post('/createUser', async function(req, res){
+
+  try {
+    const { nome, email, senha, cpf, tags, data_nascimento } = req.body;
     const data = {
       nome,
       email,
       senha: await bcrypt.hash(senha, 10),
-      perfil,
+      cpf, 
       tags,
-      instagram,
-      data_de_nascimento
+      data_nascimento,
     };
     //saving the user
-    const userName = await Users.create(data);
+    const userName = await Influenciador.create(data);
     return res.status(201).send(userName);
-  } catch (error) {
+  }catch (error) {
     console.log(error);
   }
 
 })
 
-app.get('/welcome', function (req, res) {
+app.get('/welcome', function(req, res){
   res.status(200).send("teste");
 })
-
-
-
-
-app.listen(4000, async function () {
-  console.log("teste ok")
-  return "servidor rodando"
-})
-
 
 
 
@@ -97,3 +96,9 @@ app.listen(4000, async function () {
 //   console.log("teste ok")
 //   return "servidor rodando"
 // })
+
+
+app.listen(4000, async function () {
+  console.log("teste ok")
+  return "servidor rodando"
+})

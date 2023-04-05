@@ -17,24 +17,18 @@ const Empresa = database.define('empresa', {
         type:Sequelize.STRING,
         allowNull: false
     },
+    cnpj:{
+        type:Sequelize.STRING,
+        allowNull: false
+    },
     senha:{
         type:Sequelize.STRING,
         allowNull: false
     },
-    cnpj:{
-        type: Sequelize.NUMBER,
-        allowNull: false
-    },
     tags:{
-        type: Sequelize.ENUM,
-        values: ['esporte', 'moda', 'carro','restaurante'],
+        type:Sequelize.ENUM("esporte", "moda", "carro"),
         allowNull: false
-    },
-    instagram:{
-        type:Sequelize.STRING,
-        allowNull: false
-    },
-    
+    }    
 }) 
 
 module.exports = Empresa;
