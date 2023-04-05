@@ -20,6 +20,8 @@ const pg = require('pg');
 database.sync()
 
 const bcrypt = require('bcrypt');
+const  {createEmpresa}  = require('./controller/empresa.controller');
+// const  EmpresaController = require('./controller/empresa.controller');
 
 app.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['*']);
@@ -91,25 +93,7 @@ app.post('/createInfluencer', async function(req, res){
 })
 
 
-app.post('/createEmpresa', async function(req, res){
-
-  try {
-    const { nome, email, senha, cnpj, tags } = req.body;
-    const data = {
-      nome,
-      email,
-      senha: await bcrypt.hash(senha, 10),
-      cnpj, 
-      tags,
-    };
-    //saving the user
-    const userName = await Empresa.create(data);
-    return res.status(201).send(userName);
-  }catch (error) {
-    console.log(error);
-  }
-
-})
+// app.post('/createEmpresa',  EmpresaController.createEmpresa)
 
 app.get('/welcome', function(req, res){
   res.status(200).send("teste");
