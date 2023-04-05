@@ -9,8 +9,6 @@ const empresaRoutes = require ("./routes/empresa.routes")
 const influenciadorRoutes = require("./routes/influenciador.routes")
 const propostaRoutes = require("./routes/proposta.routes")
 
-
-
 app.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['*']);
   res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -28,11 +26,11 @@ app.use("/proposta", propostaRoutes)
 //       console.log("estou pegando a senha", senha)
 //      const userName = await Users.findOne({
 //       where: {
-//       senha: JSON.stringify(senha) 
+//       senha: senha 
 //     } 
 //   });
 //    if (userName) {
-//     const isSame = await bcrypt.compare(JSON.stringify(senha) , userName.senha);
+//     const isSame = await bcrypt.compare(senha , userName.senha);
 //     return res.status(201).send(userName);
 //   } else {
 //     return res.status(401).send("Authentication failed");
@@ -41,7 +39,6 @@ app.use("/proposta", propostaRoutes)
 
 
 app.get('/welcome', function(req, res){res.status(200).send("teste");})
-
 
 app.listen(4000, async function () {
   console.log("teste ok")
