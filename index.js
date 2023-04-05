@@ -1,21 +1,15 @@
 var express = require('express');
 var app = express();
-
 require('dotenv').config()
 var bp = require('body-parser')
-
-
-
 const database = require("./db") 
-
-
 database.sync()
 
+const empresaRoutes = require ("./routes/empresa.routes")
+const influenciadorRoutes = require("./routes/influenciador.routes")
+const propostaRoutes = require("./routes/proposta.routes")
 
 
-const  EmpresaController = require('./controller/empresa.controller');
-const InfluenciadorController = require('./controller/influenciador.controller');
-const PropostaController = require('./controller/proposta.controller');
 
 app.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['*']);
@@ -26,7 +20,9 @@ app.use((req, res, next) => {
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 
-
+app.use("/empresa", empresaRoutes)
+app.use("/influenciador", influenciadorRoutes)
+app.use("/proposta", propostaRoutes)
 
 // app.post('/login', async function(req, res){
 //       console.log("estou pegando a senha", senha)
@@ -42,9 +38,8 @@ app.use(bp.urlencoded({ extended: true }))
 //     return res.status(401).send("Authentication failed");
 //   }
 // })
-app.post('/createProposta', PropostaController.createProposta)
-app.post('/createInfluenciador',InfluenciadorController.createInfluenciador)
-app.post('/createEmpresa', EmpresaController.createEmpresa)
+
+
 app.get('/welcome', function(req, res){res.status(200).send("teste");})
 
 
