@@ -2,10 +2,10 @@
   "name": "testTwillioApi",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js", 
-   "engines": { 
-      "node": "18.12.1" 
-   },
+  "main": "index.js",
+  "engines": {
+    "node": "18.12.1"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.ts"
@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
