@@ -41,10 +41,13 @@ class InfluenciadorController {
     const influenciadorLogin = await Influenciador.findOne({
       where:{
         email: email
+        // email: email
       }
     });
     if(influenciadorLogin){
       console.log("estou entrando")
+      // if(await bcrypt.compare(JSON.stringify(senha), influenciadorLogin.senha)){
+      // if(await bcrypt.compare(senha, JSON.stringify(influenciadorLogin.senha))){
       if(await bcrypt.compare(senha, influenciadorLogin.senha)){
         return res.status(201).send(influenciadorLogin)
       }else{

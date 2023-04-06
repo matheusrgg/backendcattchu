@@ -21,23 +21,6 @@ app.use(bp.urlencoded({ extended: true }))
 app.use("/empresa", empresaRoutes)
 app.use("/influenciador", influenciadorRoutes)
 app.use("/proposta", propostaRoutes)
-
-// app.post('/login', async function(req, res){
-//       console.log("estou pegando a senha", senha)
-//      const userName = await Users.findOne({
-//       where: {
-//       senha: senha 
-//     } 
-//   });
-//    if (userName) {
-//     const isSame = await bcrypt.compare(senha , userName.senha);
-//     return res.status(201).send(userName);
-//   } else {
-//     return res.status(401).send("Authentication failed");
-//   }
-// })
-
-
 app.get('/welcome', function(req, res){res.status(200).send("teste");})
 
 app.listen(4000, async function () {
