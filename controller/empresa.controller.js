@@ -1,5 +1,5 @@
 const Empresa = require('../model/Empresa')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 class EmpresaController {
   constructor() { }

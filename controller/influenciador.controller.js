@@ -1,5 +1,5 @@
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const Influenciador = require('../model/Influenciador')
 
 class InfluenciadorController {
