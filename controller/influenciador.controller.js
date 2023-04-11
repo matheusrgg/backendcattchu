@@ -1,6 +1,7 @@
 
 const bcrypt = require('bcryptjs');
 const Influenciador = require('../model/Influenciador')
+const jwt = require('jsonwebtoken');
 
 class InfluenciadorController {
   constructor() { }
@@ -49,7 +50,8 @@ class InfluenciadorController {
       // if(await bcrypt.compare(JSON.stringify(senha), influenciadorLogin.senha)){
       // if(await bcrypt.compare(senha, JSON.stringify(influenciadorLogin.senha))){
       if(await bcrypt.compare(senha, influenciadorLogin.senha)){
-        return res.status(201).send(influenciadorLogin)
+        const token = jwt.sign({ username: email }, 'mysecretkey');
+        return res.status(201).json(token)
       }else{
         res.status(401).send("Senhaa errada")
       }
