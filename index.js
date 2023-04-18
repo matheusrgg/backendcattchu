@@ -29,7 +29,7 @@ app.get('/welcome', function(req, res){res.status(200).send("teste");})
 
 
 //--------------------> Porta de Desenvolvimento
-app.listen(4000, async function () {
+app.listen(4020, async function () {
   console.log("teste ok")
   return "servidor rodando"
   })

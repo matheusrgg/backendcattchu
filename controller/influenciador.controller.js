@@ -45,12 +45,18 @@ class InfluenciadorController {
         // email: email
       }
     });
+    
     if(influenciadorLogin){
       console.log("estou entrando")
-      // if(await bcrypt.compare(JSON.stringify(senha), influenciadorLogin.senha)){
-      // if(await bcrypt.compare(senha, JSON.stringify(influenciadorLogin.senha))){
       if(await bcrypt.compare(senha, influenciadorLogin.senha)){
-        const token = jwt.sign({ username: email }, 'mysecretkey');
+
+        const token = jwt.sign({ 
+          username: email ,
+           nome: influenciadorLogin.nome, 
+           cpf : influenciadorLogin.cpf,
+           id: influenciadorLogin.id,
+           perfil: 'influenciador'
+        }, 'mysecretkey');
         return res.status(201).json(token)
       }else{
         res.status(401).send("Senhaa errada")
