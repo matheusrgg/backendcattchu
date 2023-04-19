@@ -29,17 +29,17 @@ app.get('/welcome', function(req, res){res.status(200).send("teste");})
 
 
 //--------------------> Porta de Desenvolvimento
-app.listen(4020, async function () {
-  console.log("teste ok")
-  return "servidor rodando"
-  })
+// app.listen(4020, async function () {
+//   console.log("teste ok")
+//   return "servidor rodando"
+//   })
 
 
 
 
 
   //--------------------> Porta de Produção
-  // app.listen(process.env.PORT ||3000, async function () {
-  //   console.log("teste ok")
-  //   return "servidor rodando"
-  // })
+  app.listen(process.env.PORT ||3000, async function () {
+    console.log("teste ok")
+    return "servidor rodando"
+  })
