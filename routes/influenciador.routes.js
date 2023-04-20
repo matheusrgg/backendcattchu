@@ -14,4 +14,5 @@ router.get("/list", InfluenciadorController.listInfluenciador)
 router.get("/list/:id", InfluenciadorController.idInfluenciador)
 router.post("/create", InfluenciadorController.createInfluenciador)
 router.post("/login", InfluenciadorController.loginInfluenciador)
+router.put("/update/:id", InfluenciadorController.updateInfluenciador)
 module.exports = router
