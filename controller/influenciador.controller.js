@@ -35,6 +35,31 @@ class InfluenciadorController {
     }
   }
 
+  static async updateInfluenciador(req, res){
+    try{
+      var influenciador  = await Influenciador.findByPk(req.params.id)
+      const { nome, email, cpf, tags, data_nascimento } = req.body;
+      
+      const data = {
+        nome: nome,
+        email: email,
+        cpf: cpf,
+        tags: tags,
+        data_nascimento: data_nascimento,
+      };
+      const where = {
+        where: {
+          id : req.params.id
+        }
+      }
+      influenciador  = await Influenciador.update(data, where);
+      return res.status(201).send(data);
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+
   static async loginInfluenciador(req, res){
     const {email, senha} = req.body
     console.log("senhaaaaaaaaa", senha);
