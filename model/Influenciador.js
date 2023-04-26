@@ -18,6 +18,10 @@ const Influenciador = database.define('Influenciador', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    descricao: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
     senha: {
         type: Sequelize.STRING,
         allowNull: false
@@ -40,7 +44,7 @@ const Influenciador = database.define('Influenciador', {
         type: Sequelize.STRING,
         allowNull: true,
     }
-    
+
 })
 
 

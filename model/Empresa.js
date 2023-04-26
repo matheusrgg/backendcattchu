@@ -5,33 +5,37 @@ const Proposta = require('../model/Proposta')
 
 
 const Empresa = database.define('Empresa', {
-    id:{
+    id: {
         type: Sequelize.INTEGER,
-        autoIncrement:true,
-        allowNull:false,
-        primaryKey:true
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
     },
-    nome:{
-        type:Sequelize.STRING,
+    nome: {
+        type: Sequelize.STRING,
         allowNull: false
     },
-    email:{
-        type:Sequelize.STRING,
+    email: {
+        type: Sequelize.STRING,
         allowNull: false
     },
-    cnpj:{
-        type:Sequelize.STRING,
+    cnpj: {
+        type: Sequelize.STRING,
         allowNull: false
     },
-    senha:{
-        type:Sequelize.STRING,
+    descricao: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    senha: {
+        type: Sequelize.STRING,
         allowNull: false
     },
-    tags:{
-        type:Sequelize.ENUM("esporte", "moda", "carro"),
+    tags: {
+        type: Sequelize.ENUM("esporte", "moda", "carro"),
         allowNull: false
-    }    
-}) 
+    }
+})
 
 
 Empresa.hasMany(Proposta, {
