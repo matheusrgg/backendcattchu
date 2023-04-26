@@ -18,6 +18,8 @@ app.use((req, res, next) => {
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 
+app.use('/images', express.static('./images'))
+
 app.use("/empresa", empresaRoutes)
 app.use("/influenciador", influenciadorRoutes)
 app.use("/proposta", propostaRoutes)

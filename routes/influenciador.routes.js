@@ -2,6 +2,9 @@ const express = require("express")
 
 const router = express.Router()
 
+const multer = require("multer");
+const upload = multer({ dest: "images/" });
+
 const InfluenciadorController = require('../controller/influenciador.controller')
 var app = express();
 app.use((req, res, next) => {
@@ -12,6 +15,16 @@ app.use((req, res, next) => {
   });
 router.get("/list", InfluenciadorController.listInfluenciador)
 router.get("/list/:id", InfluenciadorController.idInfluenciador)
-router.post("/create", InfluenciadorController.createInfluenciador)
+router.post("/create", InfluenciadorController.UploadImageController, InfluenciadorController.createInfluenciador)
 router.post("/login", InfluenciadorController.loginInfluenciador)
+//router.post("/uploadImage", InfluenciadorController.UploadImageController, InfluenciadorController.createInfluenciador)
+
+ router.post("/uploadImage", upload.single("image"), uploadFiles);
+
+ function uploadFiles(req, res) {
+     console.log(req.body);
+     console.log(req.file);
+     res.json({ message: "Successfully uploaded files" });
+ }
+
 module.exports = router

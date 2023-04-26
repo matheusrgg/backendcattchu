@@ -2,6 +2,18 @@
 const bcrypt = require('bcryptjs');
 const Influenciador = require('../model/Influenciador')
 
+const multer = require('multer')
+const path = require('path')
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'images')
+  },
+  filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
 class InfluenciadorController {
   constructor() { }
 
@@ -18,7 +30,7 @@ class InfluenciadorController {
 
   static async createInfluenciador(req, res) {
     try {
-      const { nome, email, senha, cpf, tags, data_nascimento } = req.body;
+      const { nome, email, senha, cpf, tags, data_nascimento} = req.body;
       const data = {
         nome,
         email,
@@ -26,6 +38,7 @@ class InfluenciadorController {
         cpf,
         tags,
         data_nascimento,
+        image: req.file
       };
       //saving the user
       const userName = await Influenciador.create(data);
@@ -57,6 +70,22 @@ class InfluenciadorController {
       return res.status(401).send("Authentication Failed")
     }
   }
+
+  // 8. Upload Image Controller
+  static async UploadImageController(req, res, file){
+    console.log('entrou upload-------------------------------------------------------------------------------')
+    console.log(req.body);
+    console.log(req.file);
+
+    req.socket.setTimeout(10 * 60 * 1000);
+
+    multer({ storage: storage }).single('image')
+
+    return res.status(200)
+
+      }
+
 }
+
 
 module.exports = InfluenciadorController

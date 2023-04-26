@@ -35,6 +35,10 @@ const Influenciador = database.define('Influenciador', {
         type: Sequelize.DATE,
         allowNull: false,
 
+    },
+    image:{
+        type: Sequelize.STRING,
+        allowNull: true,
     }
     
 })
