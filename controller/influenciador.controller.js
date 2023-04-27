@@ -32,6 +32,7 @@ class InfluenciadorController {
   static async createInfluenciador(req, res) {
     try {
       const { nome, email, senha, descricao, cpf, tags, data_nascimento } = req.body;
+      const image = req.file;
       const data = {
         nome,
         email,
@@ -40,11 +41,8 @@ class InfluenciadorController {
         cpf,
         tags,
         data_nascimento,
-        image: req.file
+        image
       };
-      if (req.file) {
-        data.avatar = req.file.filename;
-      }
       //saving the user
       const userName = await Influenciador.create(data);
       return res.status(201).send(userName);
@@ -57,7 +55,7 @@ class InfluenciadorController {
     try {
       var influenciador = await Influenciador.findByPk(req.params.id)
       const { nome, email, cpf, descricao, tags, data_nascimento } = req.body;
-
+      const image = req.file;
       const data = {
         nome: nome,
         email: email,
@@ -65,6 +63,7 @@ class InfluenciadorController {
         descricao: descricao,
         tags: tags,
         data_nascimento: data_nascimento,
+        image: image,
       };
       const where = {
         where: {
@@ -119,6 +118,22 @@ class InfluenciadorController {
     req.socket.setTimeout(10 * 60 * 1000);
 
     multer({ storage: storage }).single('image')
+
+    // var influenciador = await Influenciador.findByPk(req.params.id)
+    // const image = req.file;
+
+    // const data = {
+    //   image: image,
+    // }
+
+    // const where = {
+    //   where: {
+    //     id: req.params.id
+    //   }
+    // }
+    // influenciador = await Influenciador.update(data, where);
+
+    
 
     return res.status(200)
 
