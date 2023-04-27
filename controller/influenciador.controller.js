@@ -122,35 +122,6 @@ class InfluenciadorController {
     }
       
   }
-  // 8. Upload Image Controller
-  static async UploadImageController(req, res, file){
-    console.log('entrou upload-------------------------------------------------------------------------------')
-    console.log(req.body);
-    console.log(req.file);
-
-    req.socket.setTimeout(10 * 60 * 1000);
-
-    multer({ storage: storage }).single('image')
-
-    // var influenciador = await Influenciador.findByPk(req.params.id)
-    // const image = req.file;
-
-    // const data = {
-    //   image: image,
-    // }
-
-    // const where = {
-    //   where: {
-    //     id: req.params.id
-    //   }
-    // }
-    // influenciador = await Influenciador.update(data, where);
-
-    
-
-    return res.status(200)
-
-      }
 
 }
 
