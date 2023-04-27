@@ -20,21 +20,28 @@ class InfluenciadorController {
   static async createInfluenciador(req, res) {
     try {
       const { nome, email, senha, descricao, cpf, tags, data_nascimento } = req.body;
-      const data = {
-        nome,
-        email,
-        descricao,
-        senha: await bcrypt.hash(senha, 10),
-        cpf,
-        tags,
-        data_nascimento,
-      };
-      if (req.file) {
-        data.avatar = req.file.filename;
+      const emailExists = await Influenciador.findOne({where:{email:email}})
+   
+      if(emailExists){
+        return res.status(500).json("Email já foi registrado") 
+      }else{
+
+        const data = {
+          nome,
+          email,
+          descricao,
+          senha: await bcrypt.hash(senha, 10),
+          cpf,
+          tags,
+          data_nascimento,
+        };
+        if (req.file) {
+          data.avatar = req.file.filename;
+        }
+        //saving the user
+        const userName = await Influenciador.create(data);
+        return res.status(201).send(userName);
       }
-      //saving the user
-      const userName = await Influenciador.create(data);
-      return res.status(201).send(userName);
     } catch (error) {
       console.log(error);
     }
