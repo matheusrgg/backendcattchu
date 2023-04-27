@@ -6,15 +6,6 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer')
 const path = require('path')
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-      cb(null, 'images')
-  },
-  filename: (req, file, cb) => {
-      cb(null, Date.now() + path.extname(file.originalname))
-  }
-})
-
 class InfluenciadorController {
   constructor() { }
 
@@ -109,6 +100,28 @@ class InfluenciadorController {
     }
   }
 
+  static async uploadFiles(req, res) {
+    try {
+      console.log(req.body);
+      console.log(req.file);
+
+      var influenciador = Influenciador.findByPk(req.params.id)
+      const image = req.file.filename;
+      const data = {
+        image: image
+      }
+      const where = {
+        where: {
+          id: req.params.id
+        }
+      }
+      influenciador = Influenciador.update(data, where);
+      return res.status(201).send(data)
+    } catch (error) {
+      console.log(error);
+    }
+      
+  }
   // 8. Upload Image Controller
   static async UploadImageController(req, res, file){
     console.log('entrou upload-------------------------------------------------------------------------------')
