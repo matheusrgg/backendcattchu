@@ -39,16 +39,15 @@ const Influenciador = database.define('Influenciador', {
 
     },
     
-    //--------------foi add na migration
-    // instagram: {
-    //     type: Sequelize.STRING,
-    //     allowNull: false
-    // },
+    instagram: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
 
-    // descricao: {
-    //     type: Sequelize.STRING,
-    //     allowNull: true
-    // },
+    descricao: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
 
 })
 
