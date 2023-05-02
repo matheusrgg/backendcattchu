@@ -30,6 +30,10 @@ const Influenciador = database.define('Influenciador', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    instagram: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
 
     tags: {
         type: Sequelize.ENUM("esporte", "moda", "carro"),
