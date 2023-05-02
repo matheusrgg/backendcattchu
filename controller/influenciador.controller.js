@@ -51,7 +51,7 @@ class InfluenciadorController {
   static async updateInfluenciador(req, res) {
     try {
       var influenciador = await Influenciador.findByPk(req.params.id)
-      const { nome, email, cpf, descricao,instagram, tags, data_nascimento } = req.body;
+      const { nome, email, cpf, descricao, instagram, tags, data_nascimento } = req.body;
 
       const data = {
         nome: nome,
