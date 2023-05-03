@@ -19,7 +19,7 @@ class InfluenciadorController {
 
   static async createInfluenciador(req, res) {
     try {
-      const { nome, email, senha, descricao, cpf, tags, data_nascimento } = req.body;
+      const { nome, email, senha, descricao,instagram, cpf, tags, data_nascimento } = req.body;
       const emailExists = await Influenciador.findOne({where:{email:email}})
    
       if(emailExists){
@@ -32,6 +32,7 @@ class InfluenciadorController {
           descricao,
           senha: await bcrypt.hash(senha, 10),
           cpf,
+          instagram,
           tags,
           data_nascimento,
         };
@@ -50,7 +51,7 @@ class InfluenciadorController {
   static async updateInfluenciador(req, res) {
     try {
       var influenciador = await Influenciador.findByPk(req.params.id)
-      const { nome, email, cpf, descricao, tags, data_nascimento } = req.body;
+      const { nome, email, cpf, descricao,instagram, tags, data_nascimento } = req.body;
 
       const data = {
         nome: nome,
@@ -58,6 +59,7 @@ class InfluenciadorController {
         cpf: cpf,
         descricao: descricao,
         tags: tags,
+        instagram,
         data_nascimento: data_nascimento,
       };
       const where = {
