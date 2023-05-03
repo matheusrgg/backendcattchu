@@ -44,10 +44,6 @@ const Influenciador = database.define('Influenciador', {
         allowNull: false,
 
     },
-    avatar: {
-        type: Sequelize.STRING,
-        allowNull: true
-    }
 
 })
 
