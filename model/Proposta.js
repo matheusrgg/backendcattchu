@@ -20,7 +20,7 @@ const Proposta = database.define('Proposta', {
     },
     valor_divulgacao: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true,
     },
     status_proposta: {
         type: Sequelize.ENUM("aceita", "pendente", "declinada"),

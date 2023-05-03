@@ -59,7 +59,7 @@ class InfluenciadorController {
         cpf: cpf,
         descricao: descricao,
         tags: tags,
-        instagram,
+        instagram:instagram ,
         data_nascimento: data_nascimento,
       };
       const where = {
