@@ -17,7 +17,10 @@ class PropostaController {
         empresaId,
         data_envio
       } = req.body;
-
+  //pegar o nome dessa marca
+  //procurar o id dessa marca
+  //se ela existir cria e senão abraço
+      // const empresaExistsId = await Empresa.findOne({where:{email:email}})
       const data = {
         mensagem_proposta,
         veiculo_midiatico,
@@ -55,7 +58,6 @@ class PropostaController {
     // return res.status(201).send(influenciador);
   }
 
-  
 }
 
 module.exports = PropostaController
