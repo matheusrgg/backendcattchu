@@ -39,6 +39,10 @@ const Proposta = database.define('Proposta', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    data_envio:{
+        type: Sequelize.DATE,
+        allowNull: false
+    }
 })
 
 module.exports = Proposta;

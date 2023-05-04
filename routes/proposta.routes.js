@@ -6,5 +6,6 @@ const PropostaController = require("../controller/proposta.controller")
 
 
 router.post("/create", PropostaController.createProposta)
-
+router.get("/list", PropostaController.listAllProposta)
+router.get("/list/:id", PropostaController.listPropostaFromUser)
 module.exports = router
