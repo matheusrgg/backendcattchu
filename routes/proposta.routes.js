@@ -10,6 +10,6 @@ router.get("/list", PropostaController.listAllProposta)
 router.get("/list/:id", PropostaController.listPropostaFromUser)
 router.get("/listOne/:id", PropostaController.listIdProposta)
 router.put("/update/:id", PropostaController.updateProposal)
-
+router.delete("/delete/:id", PropostaController.deleteProposal)
 
 module.exports = router
