@@ -46,11 +46,37 @@ class PropostaController {
     return res.status(201).send(propostas)
   }
 
-  static async listPropostaFromUser(req, res){
+  static async listPropostaFromInfluencerEnviadas(req, res){
     const idUser = req.params.id
     console.log("info do usurairoorirori", idUser)
     const propostas = await Proposta.findAll({
-    where:{id_remetente: idUser}})
+    where:{
+      id_remetente: idUser,
+      tipo_remetente:'influenciador'
+    }})
+    return res.status(201).send(propostas);
+  }
+
+  
+  static async listPropostaFromInfluencerRecebidas(req, res){
+    const idUser = req.params.id
+    console.log("info do usurairoorirori", idUser)
+    const propostas = await Proposta.findAll({
+    where:{
+      tipo_remetente:'marca',
+      influenciadorId :idUser
+    }})
+    return res.status(201).send(propostas);
+  }
+
+  static async listPropostaFromEmpresa(req, res){
+    const idUser = req.params.id
+    console.log("info do usurairoorirori", idUser)
+    const propostas = await Proposta.findAll({
+    where:{
+      id_remetente: idUser,
+      tipo_remetente:'marca'
+    }})
     return res.status(201).send(propostas);
   }
 
@@ -99,6 +125,11 @@ class PropostaController {
    catch (error) {
       console.log(error);
     }
-}
+  }
+
+  static async listProposalByName(res,req){
+    const proposta = await Proposta.findByPk(req.params.name)
+    return res.status(201).send(proposta);
+  }
 }
 module.exports = PropostaController
