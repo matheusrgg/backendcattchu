@@ -125,11 +125,23 @@ class PropostaController {
    catch (error) {
       console.log(error);
     }
-  }
+}
 
-  static async listProposalByName(res,req){
-    const proposta = await Proposta.findByPk(req.params.name)
-    return res.status(201).send(proposta);
+static async deleteProposal(req, res) {
+  try {
+    const id = req.params.id;
+    var proposal = await Proposta.destroy({ where: {id} })
+    var retornoDelete
+
+    if (proposal === 1) {
+      retornoDelete = { success: true, message: `A proposta com id: ${id} foi deletada.`};
+      return res.status(200).send(retornoDelete);
+    }
+  } catch (error) {
+    console.log(error);
   }
+}
+
+
 }
 module.exports = PropostaController

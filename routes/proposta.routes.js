@@ -12,7 +12,6 @@ router.get("/listPropostaFromInfluencerRecebidas/:id", PropostaController.listPr
 router.get("/listEmpresa/:id", PropostaController.listPropostaFromEmpresa)
 router.get("/listOne/:id", PropostaController.listIdProposta)
 router.put("/update/:id", PropostaController.updateProposal)
-router.get("/listOneName/:name", PropostaController.listProposalByName)
-
+router.delete("/delete/:id", PropostaController.deleteProposal)
 
 module.exports = router
