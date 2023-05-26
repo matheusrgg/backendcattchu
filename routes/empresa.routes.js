@@ -17,4 +17,6 @@ router.get("/list/:id", EmpresaController.idEmpresa)
 router.post("/login", EmpresaController.loginEmpresa)
 router.put("/update/:id", EmpresaController.updateEmpresa)
 
+router.get("/listByName/:name", EmpresaController.listEmpresaByName)
+
 module.exports = router

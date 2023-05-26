@@ -91,6 +91,16 @@ class EmpresaController {
       return res.status(401).send("Authentication Failed")
     }
   }
+
+  static async listEmpresaByName(req, res){
+    const nome = req.params.name
+    const empresa = await Empresa.findOne({
+      where:{
+        nome: nome,
+      }})
+
+    return res.status(201).send(empresa);
+  }
 }
 
 module.exports = EmpresaController
