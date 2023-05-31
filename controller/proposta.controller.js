@@ -46,41 +46,7 @@ class PropostaController {
     return res.status(201).send(propostas)
   }
 
-  static async listPropostaFromInfluencerEnviadas(req, res){
-    const idUser = req.params.id
-    console.log("info do usurairoorirori", idUser)
-    const propostas = await Proposta.findAll({
-    where:{
-      id_remetente: idUser,
-      tipo_remetente:'influenciador'
-    }})
-    return res.status(201).send(propostas);
-  }
-
-  
-  static async listPropostaFromInfluencerRecebidas(req, res){
-    const idUser = req.params.id
-    console.log("info do usurairoorirori", idUser)
-    const propostas = await Proposta.findAll({
-    where:{
-      tipo_remetente:'marca',
-      influenciadorId :idUser
-    }})
-    return res.status(201).send(propostas);
-  }
-
-  static async listPropostaFromEmpresa(req, res){
-    const idUser = req.params.id
-    console.log("info do usurairoorirori", idUser)
-    const propostas = await Proposta.findAll({
-    where:{
-      id_remetente: idUser,
-      tipo_remetente:'marca'
-    }})
-    return res.status(201).send(propostas);
-  }
-
-  static async listIdProposta(req, res){
+ static async listIdProposta(req, res){
     const proposta = await Proposta.findByPk(req.params.id)
     return res.status(201).send(proposta);
   }
@@ -141,6 +107,54 @@ static async deleteProposal(req, res) {
     console.log(error);
   }
 }
+
+//---->Influenciador Envio e Recebimento
+
+static async listPropostaFromInfluencerEnviadas(req, res){
+  const idUser = req.params.id
+  const propostas = await Proposta.findAll({
+  where:{
+    id_remetente: idUser,
+    tipo_remetente:'influenciador'
+  }})
+  return res.status(201).send(propostas);
+}
+
+
+static async listPropostaFromInfluencerRecebidas(req, res){
+  const idUser = req.params.id
+  const propostas = await Proposta.findAll({
+  where:{
+    tipo_remetente:'marca',
+    influenciadorId :idUser
+  }})
+  return res.status(201).send(propostas);
+}
+
+//---->Empresa Envio e Recebimento
+
+
+static async listPropostaFromEmpresaEnviadas(req, res){
+  const idUser = req.params.id
+  const propostas = await Proposta.findAll({
+  where:{
+    id_remetente: idUser,
+    tipo_remetente:'marca'
+  }})
+  return res.status(201).send(propostas);
+}
+
+
+static async listPropostaFromEmpresaRecebidas(req, res){
+  const idUser = req.params.id
+  const propostas = await Proposta.findAll({
+  where:{
+    tipo_remetente:'influenciador',
+    empresaId :idUser
+  }})
+  return res.status(201).send(propostas);
+}
+
 
 
 }
