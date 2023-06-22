@@ -1,5 +1,7 @@
 const Proposta = require('../model/Proposta')
-
+const Empresa = require('../model/Empresa')
+const { sequelize } = require('sequelize');
+const Influenciador = require('../model/Influenciador')
 
 class PropostaController {
   constructor() { }
@@ -15,7 +17,8 @@ class PropostaController {
         id_destinatario,
         influenciadorId,
         empresaId,
-        data_envio
+        data_envio,
+        updated
       } = req.body;
   //pegar o nome dessa marca
   //procurar o id dessa marca
@@ -31,7 +34,8 @@ class PropostaController {
         id_destinatario,
         influenciadorId,
         empresaId,
-        data_envio
+        data_envio,
+        updated
       };
       console.log("o que tem nesse bobdy", data);
       const propostaEnvio = await Proposta.create(data);
@@ -42,7 +46,9 @@ class PropostaController {
   }
 
   static async listAllProposta(req, res) {
-    const propostas = await Proposta.findAll()
+    const propostas = await Proposta.findAll({
+      // include: [Influenciador],
+    })
     return res.status(201).send(propostas)
   }
 
@@ -55,29 +61,13 @@ class PropostaController {
     try {
     var proposta = await Proposta.findByPk(req.params.id);
     const{
-      mensagem_proposta,
-      veiculo_midiatico,
-      valor_divulgacao,
       status_proposta,
-      tipo_remetente,
-      id_remetente,
-      id_destinatario,
-      influenciadorId,
-      empresaId,
-      data_envio
+      updated
     } = req.body;
 
     const data = {
-      mensagem_proposta: mensagem_proposta,
-      veiculo_midiatico :veiculo_midiatico,
-      valor_divulgacao :valor_divulgacao,
       status_proposta:status_proposta,
-      tipo_remetente :tipo_remetente,
-      id_remetente:id_remetente,
-      id_destinatario:id_destinatario,
-      influenciadorId:influenciadorId,
-      empresaId:empresaId,
-      data_envio :data_envio
+      updated:updated
     }
 
     const where = {
@@ -116,7 +106,11 @@ static async listPropostaFromInfluencerEnviadas(req, res){
   where:{
     id_remetente: idUser,
     tipo_remetente:'influenciador'
-  }})
+  },
+  // include:[{model:Influenciador, as: "influenciadorId"}]
+
+
+})
   return res.status(201).send(propostas);
 }
 
@@ -125,11 +119,12 @@ static async listPropostaFromInfluencerRecebidas(req, res){
   const idUser = req.params.id
   const propostas = await Proposta.findAll({
   where:{
+    influenciadorId :idUser,
     tipo_remetente:'marca',
-    influenciadorId :idUser
   }})
   return res.status(201).send(propostas);
 }
+
 
 //---->Empresa Envio e Recebimento
 
@@ -144,16 +139,36 @@ static async listPropostaFromEmpresaEnviadas(req, res){
   return res.status(201).send(propostas);
 }
 
-
 static async listPropostaFromEmpresaRecebidas(req, res){
   const idUser = req.params.id
   const propostas = await Proposta.findAll({
   where:{
+    empresaId :idUser,
     tipo_remetente:'influenciador',
-    empresaId :idUser
   }})
   return res.status(201).send(propostas);
 }
+
+
+//---->Empresa Envio e Recebimento
+
+// static async innerJoinPropostaEmpresa(req, res){
+//   // const teste = Proposta.findAll({
+//   //   include: [{
+//   //     model: Empresa,
+//   //     required: true
+//   //    }]
+//   // }).then(posts => {
+//   //   /* ... */
+//   // });
+
+//   // "SELECT * FROM Invoices JOIN Users ON Invoices.userId = Users.id"
+//   const [results, metadata] = sequelize.query(
+//     "SELECT * FROM Proposta JOIN Empresa ON Proposta.empresaId = Empresa.id"
+//   );
+
+//   return res.status(201).send(results);
+// }
 
 
 

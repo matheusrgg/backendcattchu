@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize  } = require('sequelize');
 
 const database = require('../db');
 
@@ -31,6 +31,10 @@ const Proposta = database.define('Proposta', {
         type: Sequelize.ENUM("marca", "influenciador"),
         allowNull: false
     },
+    updated: {
+        type: Sequelize.ENUM("true", "false"),
+        allowNull: false
+    },
     id_remetente: {
         type: Sequelize.STRING,
         allowNull: false
@@ -42,7 +46,6 @@ const Proposta = database.define('Proposta', {
     data_envio:{
         type: Sequelize.DATE,
         allowNull: false
-    }
-})
-
+    },
+}, { freezeTableName: true });
 module.exports = Proposta;

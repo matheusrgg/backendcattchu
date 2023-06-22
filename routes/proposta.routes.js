@@ -23,4 +23,8 @@ router.get("/listPropostaFromEmpresaEnviadas/:id", PropostaController.listPropos
 router.get("/listPropostaFromEmpresaRecebidas/:id", PropostaController.listPropostaFromEmpresaRecebidas)
 
 
+//---->InnerJoinTEste
+
+// router.get("/innerJoinPropostaEmpresa", PropostaController.innerJoinPropostaEmpresa)
+
 module.exports = router

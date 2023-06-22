@@ -41,6 +41,7 @@ class InfluenciadorController {
         }
         //saving the user
         const userName = await Influenciador.create(data);
+        //send email
         return res.status(201).send(userName);
       }
     } catch (error) {
