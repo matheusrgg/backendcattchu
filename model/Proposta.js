@@ -47,5 +47,5 @@ const Proposta = database.define('Proposta', {
         type: Sequelize.DATE,
         allowNull: false
     },
-}, { freezeTableName: true });
+}, );
 module.exports = Proposta;

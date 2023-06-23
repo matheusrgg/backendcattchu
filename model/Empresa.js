@@ -38,13 +38,4 @@ const Empresa = database.define('Empresa', {
 })
 
 
-Empresa.hasMany(Proposta, {
-    foreignKey: {
-        name: "empresaId",
-        allowNull: false
-    },
-
-})
-Proposta.belongsTo(Empresa);
-
 module.exports = Empresa;

@@ -3,11 +3,16 @@ var app = express();
 require('dotenv').config()
 var bp = require('body-parser')
 const database = require("./db") 
-database.sync()
+// database.sync({ alter: true })
+const Influenciador = require('./model/Influenciador');
+const Proposta = require("./model/Proposta")
 
+Influenciador.hasMany(Proposta, { foreignKey: 'id_influenciador' })
+Proposta.belongsTo(Influenciador, { foreignKey: 'id_influenciador' })
+database.sync()
 const empresaRoutes = require ("./routes/empresa.routes")
 const influenciadorRoutes = require("./routes/influenciador.routes")
-const propostaRoutes = require("./routes/proposta.routes")
+const propostaRoutes = require("./routes/proposta.routes");
 
 app.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['*']);

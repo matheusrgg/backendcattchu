@@ -18,10 +18,7 @@ const Influenciador = database.define('Influenciador', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    descricao: {
-        type: Sequelize.STRING,
-        allowNull: true
-    },
+
     senha: {
         type: Sequelize.STRING,
         allowNull: false
@@ -30,10 +27,7 @@ const Influenciador = database.define('Influenciador', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    instagram: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
+
 
     tags: {
         type: Sequelize.ENUM("esporte", "moda", "carro"),
@@ -44,17 +38,18 @@ const Influenciador = database.define('Influenciador', {
         allowNull: false,
 
     },
-
-})
-
-
-Influenciador.hasMany(Proposta, {
-    foreignKey: {
-        name: "influenciadorId",
+    
+    instagram: {
+        type: Sequelize.STRING,
         allowNull: false
     },
 
-})
-Proposta.belongsTo(Influenciador);
+    descricao: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+
+} ,{ freezeTableName: true })
+
 
 module.exports = Influenciador;

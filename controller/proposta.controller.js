@@ -15,8 +15,8 @@ class PropostaController {
         tipo_remetente,
         id_remetente,
         id_destinatario,
-        influenciadorId,
-        empresaId,
+        id_influenciador,
+        // empresaId,
         data_envio,
         updated
       } = req.body;
@@ -32,8 +32,8 @@ class PropostaController {
         tipo_remetente,
         id_remetente,
         id_destinatario,
-        influenciadorId,
-        empresaId,
+        id_influenciador,
+        // empresaId,
         data_envio,
         updated
       };
@@ -47,9 +47,13 @@ class PropostaController {
 
   static async listAllProposta(req, res) {
     const propostas = await Proposta.findAll({
-      // include: [Influenciador],
+      include: {
+        model: Influenciador,
+        required: true
+      }
     })
     return res.status(201).send(propostas)
+
   }
 
  static async listIdProposta(req, res){
