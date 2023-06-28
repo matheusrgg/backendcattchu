@@ -6,9 +6,13 @@ const database = require("./db")
 // database.sync({ alter: true })
 const Influenciador = require('./model/Influenciador');
 const Proposta = require("./model/Proposta")
-
+const Empresa = require('./model/Empresa');
 Influenciador.hasMany(Proposta, { foreignKey: 'id_influenciador' })
 Proposta.belongsTo(Influenciador, { foreignKey: 'id_influenciador' })
+Empresa.hasMany(Proposta, { foreignKey: 'id_empresa' })
+Proposta.belongsTo(Empresa, { foreignKey: 'id_empresa' })
+
+
 database.sync()
 const empresaRoutes = require ("./routes/empresa.routes")
 const influenciadorRoutes = require("./routes/influenciador.routes")

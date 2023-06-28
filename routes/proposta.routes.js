@@ -3,6 +3,7 @@ const express = require("express")
 const router = express.Router()
 
 const PropostaController = require("../controller/proposta.controller")
+const PropostaComunicacaoController = require("../controller/propostaComunicacao.controller")
 
 
 router.post("/create", PropostaController.createProposta)
@@ -13,14 +14,14 @@ router.delete("/delete/:id", PropostaController.deleteProposal)
 
 //---->Influenciador Envio e Recebimento
 
-router.get("/listPropostaFromInfluencerEnviadas/:id", PropostaController.listPropostaFromInfluencerEnviadas)
-router.get("/listPropostaFromInfluencerRecebidas/:id", PropostaController.listPropostaFromInfluencerRecebidas)
+router.get("/listPropostaFromInfluencerEnviadas/:id", PropostaComunicacaoController.listPropostaFromInfluencerEnviadas)
+router.get("/listPropostaFromInfluencerRecebidas/:id", PropostaComunicacaoController.listPropostaFromInfluencerRecebidas)
 
 
 //---->Empresa Envio e Recebimento
 
-router.get("/listPropostaFromEmpresaEnviadas/:id", PropostaController.listPropostaFromEmpresaEnviadas)
-router.get("/listPropostaFromEmpresaRecebidas/:id", PropostaController.listPropostaFromEmpresaRecebidas)
+router.get("/listPropostaFromEmpresaEnviadas/:id", PropostaComunicacaoController.listPropostaFromEmpresaEnviadas)
+router.get("/listPropostaFromEmpresaRecebidas/:id", PropostaComunicacaoController.listPropostaFromEmpresaRecebidas)
 
 
 //---->InnerJoinTEste
